@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#2d5016">
+  <meta name="description" content="Processing AWB - Dashboard Panen & Kemasan">
+
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+
+  <title>Processing - AWB</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<header class="app-header">
+  <img class="brand-logo" src="./logo-awb.png" alt="Agri Wangi Berry">
+  <h1>Processing AWB</h1>
+  <p>PT. Agri Wangi Berry · Ciwidey</p>
+  <div id="sync-status" class="auth-status"></div>
+  <div class="header-actions">
+    <button id="pushBtn" class="btn btn-sync" style="display:none" onclick="syncQueue(true)">⬆ Sync</button>
+    <button id="pullBtn" class="btn btn-sync" style="display:none" onclick="pullFromSheet()">⬇ Muat</button>
+    <button id="authBtn" class="btn btn-primary" onclick="handleAuthClick()">☁️ Connect Sheets</button>
+  </div>
+</header>
+
+<div class="container" id="app-container"></div>
+
+<div id="modal-edit-panen" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">✏️ Edit Data</div>
+    <div class="modal-body" id="modal-edit-panen-body"></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModalEditPanen()">Batal</button>
+      <button class="btn btn-primary" onclick="saveEditPanen()">Simpan Perubahan</button>
+    </div>
+  </div>
+</div>
+
+<div id="modal-edit-kemasan" class="modal">
+  <div class="modal-content" style="max-width: 600px;">
+    <div class="modal-header">✏️ Edit Transaksi Kemasan</div>
+    <div class="modal-body" id="modal-edit-kemasan-body"></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModalEditKemasan()">Batal</button>
+      <button class="btn btn-primary" onclick="saveEditKemasan()">Simpan Perubahan</button>
+    </div>
+  </div>
+</div>
+
+<div id="modal-import" class="modal">
+  <div class="modal-content" style="max-width: 760px;">
+    <div class="modal-header" id="import-title">📥 Import CSV</div>
+    <div class="modal-body">
+      <div class="info-box" id="import-info"></div>
+      <div class="input-group">
+        <label>Pilih File CSV</label>
+        <input type="file" id="import-file" accept=".csv,text/csv" onchange="previewImport()">
+      </div>
+      <div class="input-group">
+        <label style="display:flex;align-items:center;gap:0.5rem;font-weight:normal;cursor:pointer;">
+          <input type="checkbox" id="import-clear" style="width:auto;">
+          <span>Hapus <b>semua data lama</b> tipe ini sebelum import (hati-hati!)</span>
+        </label>
+      </div>
+      <div id="import-preview"></div>
+    </div>
+    <div class="modal-footer" style="flex-wrap: wrap;">
+      <button class="btn btn-secondary" onclick="downloadTemplate()">📄 Download Template</button>
+      <button class="btn btn-secondary" onclick="closeImportModal()">Batal</button>
+      <button class="btn btn-primary" onclick="executeImport()">Import Sekarang</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="./core.js"></script>
+<script src="./mod-lks.js"></script>
+<script src="./mod-rekap-panen.js"></script>
+<script src="./mod-stok-mika.js"></script>
+<script src="./mod-dashboard-panen.js"></script>
+<script src="./mod-dashboard-mika.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
